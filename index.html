@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | RescueOne</title>
+    <title>Home | RescueOne</title>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Arial, sans-serif;
             background-color: #f3f4f6;
-            margin: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -22,6 +22,9 @@
             background-color: #1d4ed8;
             color: white;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         nav .container {
             display: flex;
@@ -37,8 +40,6 @@
             list-style: none;
             display: flex;
             gap: 24px;
-            margin: 0;
-            padding: 0;
         }
         nav a {
             color: white;
@@ -51,124 +52,107 @@
         nav a.active {
             font-weight: bold;
         }
+        .nav-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
         main {
             flex-grow: 1;
             padding: 32px 0;
         }
-        .about-main {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .mission-section {
+        .hero {
             background-color: #1d4ed8;
             color: white;
-            padding: 48px 32px;
-            border-radius: 8px;
-            margin-bottom: 48px;
             text-align: center;
+            padding: 64px 16px;
+            margin-bottom: 32px;
         }
-        .mission-section h1 {
+        .hero h1 {
             font-size: 32px;
             margin-bottom: 16px;
         }
-        .mission-section p {
-            max-width: 800px;
-            margin: 0 auto;
+        .hero p {
             font-size: 18px;
-            line-height: 1.8;
-            color: #e5e7eb;
+            max-width: 800px;
+            margin: 0 auto 24px;
         }
-        .team-section h2,
-        .testimonials h2 {
+        .hero .cta {
+            display: inline-block;
+            background-color: white;
+            color: #1d4ed8;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .hero .cta:hover {
+            background-color: #e5e7eb;
+        }
+        .section {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .section h2 {
             font-size: 24px;
             color: #1f2937;
-            text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 16px;
         }
-        .team-grid {
+        .cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 32px;
-            margin-bottom: 64px;
+            gap: 24px;
         }
-        .team-card {
+        .card {
             background-color: white;
+            padding: 16px;
             border-radius: 8px;
-            padding: 24px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .team-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-        }
-        .card-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 16px;
-            background-color: #e5e7eb;
-            position: relative;
-        }
-        .card-image::before {
-            content: "Photo";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #6b7280;
-            font-size: 14px;
-        }
-        .team-card h3 {
+        .card h3 {
             font-size: 20px;
             color: #1f2937;
             margin-bottom: 8px;
         }
-        .role {
-            color: #3b82f6;
-            font-weight: bold;
+        .card p {
+            color: #4b5563;
+            font-size: 14px;
             margin-bottom: 12px;
         }
-        .bio {
-            color: #4b5563;
-            line-height: 1.6;
-            font-size: 14px;
+        .card a {
+            background-color: #1d4ed8;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+        .card a:hover {
+            background-color: #1e40af;
+        }
+        .testimonials {
+            background-color: white;
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
         .testimonial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-            margin-bottom: 64px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
         }
         blockquote {
-            background-color: white;
-            padding: 24px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        blockquote::before {
-            content: "\201C";
-            font-size: 48px;
-            color: #3b82f6;
-            position: absolute;
-            left: 16px;
-            top: 0;
-            line-height: 1;
+            padding: 16px;
+            border-left: 4px solid #3b82f6;
         }
         blockquote p {
             font-size: 16px;
-            line-height: 1.7;
-            padding-left: 48px;
             color: #374151;
         }
         blockquote footer {
-            text-align: right;
             font-weight: bold;
             color: #1f2937;
-            margin-top: 16px;
-            padding-right: 16px;
+            margin-top: 8px;
+            text-align: right;
         }
         footer {
             background-color: #1f2937;
@@ -178,11 +162,11 @@
         footer .container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px;
+            gap: 24px;
         }
         footer h3 {
             font-size: 18px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         footer p, footer li {
             color: #d1d5db;
@@ -191,14 +175,12 @@
         footer a {
             color: #d1d5db;
             text-decoration: none;
-            transition: color 0.3s;
         }
         footer a:hover {
             color: white;
         }
         footer ul {
             list-style: none;
-            padding: 0;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -210,113 +192,125 @@
         }
         .copyright {
             border-top: 1px solid #374151;
-            margin-top: 32px;
-            padding-top: 24px;
+            margin-top: 24px;
+            padding-top: 16px;
             text-align: center;
             color: #9ca3af;
         }
         @media (max-width: 768px) {
             nav ul {
                 display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                width: 100%;
+                background-color: #1d4ed8;
+                padding: 16px;
             }
-            .mission-section {
-                padding: 32px 16px;
+            nav ul.active {
+                display: flex;
             }
-            .mission-section h1 {
+            .nav-toggle {
+                display: block;
+            }
+            .hero h1 {
                 font-size: 28px;
             }
-            .mission-section p {
+            .hero p {
                 font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav>
         <div class="container">
             <div class="logo">RescueOne</div>
+            <span class="nav-toggle" onclick="document.querySelector('nav ul').classList.toggle('active')">&#9776;</span>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-                <li><a href="report_incident.html">Report Incident</a></li>
-                <li><a href="volunteer_registration.html">Volunteer</a></li>
-                <li><a href="donation.html">Donate</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="ngo_dashboard.html">NGO Dashboard</a></li>
-                <li><a href="admin_reports.html">Admin Reports</a></li>
+                <li><a href="./index.html" class="active">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+                <li><a href="./report_incident.html">Report Incident</a></li>
+                <li><a href="./volunteer_registration.html">Volunteer</a></li>
+                <li><a href="./donation.html">Donate</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./ngo_dashboard.html">NGO Dashboard</a></li>
+                <li><a href="./admin_reports.html">Admin Reports</a></li>
             </ul>
         </div>
     </nav>
-
-    <!-- Main Content -->
-    <main class="about-main">
-        <section class="mission-section" aria-labelledby="mission-heading">
-            <h1 id="mission-heading">Our Mission</h1>
-            <p>RescueOne connects volunteers and NGOs with disaster-affected communities to save lives and mitigate the impacts of natural calamities. Our platform streamlines coordination between relief organizations, volunteers, and donors to ensure efficient disaster response.</p>
+    <main>
+        <section class="hero">
+            <h1>Welcome to RescueOne</h1>
+            <p>Connecting disaster-affected communities with volunteers and NGOs for rapid relief.</p>
+            <a href="./report_incident.html" class="cta">Report an Incident</a>
         </section>
-        <section class="team-section" aria-labelledby="team-heading">
-            <h2 id="team-heading">Our Team</h2>
-            <div class="team-grid">
-                <article class="team-card" aria-labelledby="team1">
-                    <div class="card-image" role="img" aria-label="Photo of Sarah Johnson"></div>
-                    <h3 id="team1">Sarah Johnson</h3>
-                    <p class="role">Founder & CEO</p>
-                    <p class="bio">10+ years in disaster management, former UN disaster response coordinator.</p>
-                </article>
-                <article class="team-card" aria-labelledby="team2">
-                    <div class="card-image" role="img" aria-label="Photo of Michael Chen"></div>
-                    <h3 id="team2">Michael Chen</h3>
-                    <p class="role">Technology Director</p>
-                    <p class="bio">Software engineer specializing in crisis mapping and real-time coordination systems.</p>
-                </article>
-                <article class="team-card" aria-labelledby="team3">
-                    <div class="card-image" role="img" aria-label="Photo of Priya Patel"></div>
-                    <h3 id="team3">Priya Patel</h3>
-                    <p class="role">Partnership Manager</p>
-                    <p class="bio">Connects RescueOne with NGOs and government agencies worldwide.</p>
-                </article>
-            </div>
-        </section>
-        <section class="testimonials" aria-labelledby="testimonials-heading">
-            <h2 id="testimonials-heading">What People Say About Us</h2>
-            <div class="testimonial-grid">
-                <blockquote>
-                    <p>"RescueOne streamlined our relief efforts during the 2023 floods, helping us reach 40% more affected families."</p>
-                    <footer>— Red Crescent Society</footer>
-                </blockquote>
-                <blockquote>
-                    <p>"As a volunteer, I was able to find meaningful opportunities within 24 hours of signing up."</p>
-                    <footer>— David M., Rescue Volunteer</footer>
-                </blockquote>
-            </div>
-        </section>
+        <div class="container">
+            <section class="section">
+                <h2>Our Mission</h2>
+                <p style="max-width: 800px; margin: 0 auto; color: #4b5563;">
+                    RescueOne streamlines disaster response by connecting volunteers, donors, and NGOs.
+                </p>
+            </section>
+            <section class="section">
+                <h2>How You Can Help</h2>
+                <div class="cards">
+                    <div class="card">
+                        <h3>Report an Incident</h3>
+                        <p>Alert us to disasters for rapid response.</p>
+                        <a href="./report_incident.html">Report Now</a>
+                    </div>
+                    <div class="card">
+                        <h3>Volunteer</h3>
+                        <p>Join our network to provide support.</p>
+                        <a href="./volunteer_registration.html">Sign Up</a>
+                    </div>
+                    <div class="card">
+                        <h3>Donate</h3>
+                        <p>Fund critical relief efforts.</p>
+                        <a href="./donation.html">Donate Now</a>
+                    </div>
+                </div>
+            </section>
+            <section class="testimonials">
+                <h2>What People Say</h2>
+                <div class="testimonial-grid">
+                    <blockquote>
+                        <p>"RescueOne helped us reach 40% more families during the 2023 floods."</p>
+                        <footer>— Red Crescent Society</footer>
+                    </blockquote>
+                    <blockquote>
+                        <p>"Volunteering was seamless; I was on the ground within 24 hours."</p>
+                        <footer>— David M., Volunteer</footer>
+                    </blockquote>
+                </div>
+            </section>
+        </div>
     </main>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div>
                 <h3>RescueOne</h3>
-                <p>Connecting disaster victims with NGOs and emergency services to facilitate efficient relief efforts.</p>
+                <p>Connecting disaster victims with NGOs and emergency services.</p>
             </div>
             <div>
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="report_incident.html">Report Incident</a></li>
-                    <li><a href="volunteer_registration.html">Volunteer</a></li>
-                    <li><a href="donation.html">Donate</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
+                    <li><a href="./report_incident.html">Report Incident</a></li>
+                    <li><a href="./volunteer_registration.html">Volunteer</a></li>
+                    <li><a href="./donation.html">Donate</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
                 </ul>
             </div>
             <div>
                 <h3>Contact Us</h3>
                 <ul class="contact">
-                    <li><span>Email: contact@rescueone.org</span></li>
-                    <li><span>Phone: +1 (555) 123-4567</span></li>
-                    <li><span>Address: 123 Disaster Way, Relief City 98765</span></li>
+                    <li>Email: contact@rescueone.org</li>
+                    <li>Phone: +1 (555) 123-4567</li>
+                    <li>Address: 123 Disaster Way, Relief City</li>
                 </ul>
             </div>
         </div>
